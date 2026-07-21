@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
 
 export const pool = new Pool({
-    connectionString: '',                 
+    connectionString: process.env.DATABASE_URL,                 
 });
