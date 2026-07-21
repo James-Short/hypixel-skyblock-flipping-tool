@@ -11,5 +11,7 @@ export async function startProductsFetch(){
         updateProductprices(products.products);
     } catch(err){
         console.error('Failed to fetch: ', err);
+    } finally{
+        setTimeout(startProductsFetch, 300_000);
     }
 }

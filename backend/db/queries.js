@@ -49,4 +49,20 @@ export async function getCurrentProducts(sortBy = 'coins_per_hour', reverseSort=
     console.log(products.rows);
 }
 
+export async function getProductHistory(productID){
+    const productHistory = await pool.query(
+        `
+        SELECT
+            product_id,
+            buy_price,
+            sell_price,
+            recorded_at
+        FROM products
+        WHERE product_id = '${productID}'
+        ORDER BY recorded_at ASC;
+        `
+    );
+    console.log(productHistory.rows);
+}
+
 
