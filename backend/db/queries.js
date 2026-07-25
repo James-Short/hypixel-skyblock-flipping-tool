@@ -10,15 +10,15 @@ export async function updateProductprices(products){
     }
 }
 
-export async function getCurrentProducts(sortBy = 'coins_per_hour', reverseSort=false){
+export async function getCurrentProducts(sortBy = 'coinsPerHour', reverseSort=false){
     const sorts = {
-        'coins_per_hour': '(buy_price - sell_price) * LEAST(buy_moving_week, sell_moving_week) / (7 * 24.0)',
+        'coinsPerHour': '(buy_price - sell_price) * LEAST(buy_moving_week, sell_moving_week) / (7 * 24.0)',
         'margin': '(buy_price - sell_price)',
-        'margin_percentage': '((buy_price - sell_price) / sell_price)',
-        'sell_volume': 'sell_moving_week',
-        'buy_volume': 'buy_moving_week',
-        'buy_price': 'buy_price',
-        'sell_price': 'sell_price'
+        'marginPercentage': '((buy_price - sell_price) / sell_price)',
+        'sellVolume': 'sell_moving_week',
+        'buyVolume': 'buy_moving_week',
+        'buyPrice': 'buy_price',
+        'sellPrice': 'sell_price'
     }
 
     const currentSort = sorts[sortBy] ?? sorts['coins_per_hour'];
@@ -46,10 +46,10 @@ export async function getCurrentProducts(sortBy = 'coins_per_hour', reverseSort=
         ORDER BY ${currentSort} ${reverseSort ? 'ASC' : 'DESC'}
         `
     );
-    console.log(products.rows);
+    return products.rows;
 }
 
-export async function getProductHistory(productID){
+export async function getProductHistory(productId){
     const productHistory = await pool.query(
         `
         SELECT
@@ -58,11 +58,12 @@ export async function getProductHistory(productID){
             sell_price,
             recorded_at
         FROM products
-        WHERE product_id = '${productID}'
+        WHERE product_id = '${productId}'
         ORDER BY recorded_at ASC;
         `
     );
     console.log(productHistory.rows);
+    return productHistory.rows;
 }
 
 
