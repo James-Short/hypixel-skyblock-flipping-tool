@@ -1,0 +1,15 @@
+
+.product{
+    width: 15%;
+    aspect-ratio: 1/1.15;
+    background-color: #535353;
+    margin-bottom: 2%;
+    border-radius: 15px;
+    min-width: 325px;
+}
+
+.product:hover{
+    cursor: pointer;
+    opacity: 0.8;
+    outline: 1px solid white;
+}

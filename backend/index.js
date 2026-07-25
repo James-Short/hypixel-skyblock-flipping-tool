@@ -4,4 +4,4 @@ import { updateProductprices, getCurrentProducts, getProductHistory } from './db
 import { startProductsFetch } from './fetchProducts.js';
 
 
-getProductHistory('CORRUPTED_BAIT');
+startProductsFetch();
