@@ -10,18 +10,18 @@ export async function updateProductprices(products){
     }
 }
 
-export async function getCurrentProducts(sortBy = 'coinsPerHour', reverseSort=false){
+export async function getCurrentProducts(sortBy = 'Coins per hour', reverseSort=false){
     const sorts = {
-        'coinsPerHour': '(buy_price - sell_price) * LEAST(buy_moving_week, sell_moving_week) / (7 * 24.0)',
-        'margin': '(buy_price - sell_price)',
-        'marginPercentage': '((buy_price - sell_price) / sell_price)',
-        'sellVolume': 'sell_moving_week',
-        'buyVolume': 'buy_moving_week',
-        'buyPrice': 'buy_price',
-        'sellPrice': 'sell_price'
+        'Coins per hour': '(buy_price - sell_price) * LEAST(buy_moving_week, sell_moving_week) / (7 * 24.0)',
+        'Margin': '(buy_price - sell_price)',
+        'Margin %': '((buy_price - sell_price) / sell_price)',
+        'Instasells': 'sell_moving_week',
+        'Instabuys': 'buy_moving_week',
+        'Buy order price': 'buy_price',
+        'Sell order price': 'sell_price'
     }
 
-    const currentSort = sorts[sortBy] ?? sorts['coins_per_hour'];
+    const currentSort = sorts[sortBy] ?? sorts['Coins per hour'];
 
     const products = await pool.query(
         `

@@ -3,8 +3,8 @@ import { getCurrentProducts, getProductHistory } from './db/queries.js';
 export async function socketRouter(ws, data){
     if(data.type === 'getTopProducts'){
         try{
+            console.log(data.sortBy, data.reverse)
             const topProducts = await getCurrentProducts(data.sortBy, data.reverse);
-            console.log(topProducts);
             ws.send(JSON.stringify({ type: 'deliverTopProducts', data: topProducts }))
         } catch(err){
             console.error(err);
