@@ -8,6 +8,9 @@ function App() {
   const [products, setProducts] = useState([]); 
   const [selectedSort, setSelectedSort] = useState("Coins per hour");
   const [reversed, setReversed] = useState(false);
+  const [currentProductHistory, setCurrentProductHistory] = useState([]);
+  const [currentProductName, setCurrentProductName] = useState("");
+  const [overlayVisible, setOverlayVisible] = useState(false);
   const ws = useRef(null);
   const isFirstRender = useRef(true);
 
@@ -28,6 +31,10 @@ function App() {
       console.log("Got message: ", data);
       if(data.type === 'deliverTopProducts'){
         setProducts(data.data);
+      }
+      else if(data.type === 'deliverProductHistory'){
+        setCurrentProductHistory(data.data);
+        setOverlayVisible(true);
       }
     }
 
@@ -50,10 +57,9 @@ function App() {
     socket.send(JSON.stringify({ type: "getTopProducts", sortBy: selectedSort, reverse: reversed }));
   }, [selectedSort, reversed])
 
-
   return (
     <>
-      <ProductOverlay/>
+      {overlayVisible ? <ProductOverlay data={currentProductHistory} productName={currentProductName} closeMenu={() => setOverlayVisible(false)}/> : <></>}
       <div className='sort-container'>
         <select name="" id="" className='sort-select' value={selectedSort} onChange={(e) => setSelectedSort(e.target.value)}>
           <option>Coins per hour</option>
@@ -68,7 +74,10 @@ function App() {
       </div>
       <div className='product-container'>
         {products.map(({ product_id, buy_price, sell_price, buy_moving_week, sell_moving_week }, index) => (
-          <Product productName={product_id.replace(/_/g," ")} buyPrice={buy_price} sellPrice={sell_price} instaSells={sell_moving_week / (7*24)} instaBuys={buy_moving_week / (7*24)}/>
+          <Product key={product_id} productName={product_id.replace(/_/g," ")} buyPrice={buy_price.toLocaleString()} sellPrice={sell_price.toLocaleString()}
+            instaSells={(sell_moving_week / (7*24)).toLocaleString()} instaBuys={(buy_moving_week / (7*24)).toLocaleString()}
+            onClick={() => {ws.current.send(JSON.stringify({ type: "getProductHistory", productId: product_id })); setCurrentProductName(product_id.replace(/_/g, " "));}}
+          />
         ))}
       </div>
     </>

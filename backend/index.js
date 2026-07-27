@@ -13,5 +13,7 @@ wss.on('connection', (ws, req) => {
     });
 })
 
+startProductsFetch();
+
 
 

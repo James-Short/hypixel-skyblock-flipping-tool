@@ -1,8 +1,8 @@
 import './Product.css';
 
-function Product({ productName, buyPrice, sellPrice, instaBuys, instaSells }){
+function Product({ productName, buyPrice, sellPrice, instaBuys, instaSells, onClick }){
     return(
-        <div className='product'>
+        <div className='product' onClick={onClick}>
             <h3 className='product-title'>{productName}</h3>
             <h4>Buy price: ${buyPrice}</h4>
             <h4>Sell price: ${sellPrice}</h4>
