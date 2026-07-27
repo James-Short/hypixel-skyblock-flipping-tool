@@ -2,6 +2,7 @@ import Product from './components/Product/Product';
 import './index.css';
 import './App.css'
 import { useState, useEffect, useRef } from 'react';
+import ProductOverlay from './components/ProductOverlay/ProductOverlay';
 
 function App() {
   const [products, setProducts] = useState([]); 
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <>
+      <ProductOverlay/>
       <div className='sort-container'>
         <select name="" id="" className='sort-select' value={selectedSort} onChange={(e) => setSelectedSort(e.target.value)}>
           <option>Coins per hour</option>
