@@ -73,9 +73,9 @@ function App() {
         <button className='sort-reverse-button' onClick={() => setReversed(!reversed)}>{reversed ? "⬆" : "⬇"}</button>
       </div>
       <div className='product-container'>
-        {products.map(({ product_id, buy_price, sell_price, buy_moving_week, sell_moving_week }, index) => (
+        {products.map(({ product_id, buy_price, sell_price, buy_moving_week, sell_moving_week, coins_per_hour }, index) => (
           <Product key={product_id} productName={product_id.replace(/_/g," ")} buyPrice={buy_price.toLocaleString()} sellPrice={sell_price.toLocaleString()}
-            instaSells={(sell_moving_week / (7*24)).toLocaleString()} instaBuys={(buy_moving_week / (7*24)).toLocaleString()}
+            instaSells={(sell_moving_week / (7*24)).toLocaleString()} instaBuys={(buy_moving_week / (7*24)).toLocaleString()} coinsPerHour={coins_per_hour.toLocaleString()}
             onClick={() => {ws.current.send(JSON.stringify({ type: "getProductHistory", productId: product_id })); setCurrentProductName(product_id.replace(/_/g, " "));}}
           />
         ))}

@@ -17,8 +17,8 @@ function ProductOverlay({ data, productName, closeMenu }){
                         <YAxis tickLine={false} axisLine={false} stroke='white' tickCount={5} domain={[(dataMin) => Math.floor(dataMin * 0.98), (dataMax) => Math.ceil(dataMax * 1.02)]}
                             tickFormatter={(value) => value.toLocaleString()}    
                         />
-                        <Line type="monotone" dataKey="buy_price" stroke='#305CDE' strokeWidth='1px'/>
-                        <Line type="monotone" dataKey="sell_price" stroke='tomato' />
+                        <Line type="monotone" dataKey="buy_price" stroke='#305CDE' strokeWidth='3px' dot={false}/>
+                        <Line type="monotone" dataKey="sell_price" stroke='tomato' strokeWidth='3px' dot={false}/>
                         <Legend position={'insideTopRight'} offset={10} wrapperStyle={{border: '1px solid white', borderRadius: 5, padding: '1%'}}/>
                     </LineChart>
                 </ResponsiveContainer>

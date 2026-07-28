@@ -15,6 +15,8 @@
     transform: translate(-50%, -50%);
     width: 90%;
     height: 90%;
+    min-width: 1200px;
+    min-height: 675px;
     outline: 1px solid white;
     backdrop-filter: blur(25px);
     border-radius: 5px;

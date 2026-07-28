@@ -32,7 +32,8 @@ export async function getCurrentProducts(sortBy = 'Coins per hour', reverseSort=
             buy_volume,
             sell_volume,
             sell_moving_week,
-            buy_moving_week
+            buy_moving_week,
+            (buy_price - sell_price) * LEAST(buy_moving_week, sell_moving_week) / (7 * 24.0) AS coins_per_hour
         FROM (
         SELECT DISTINCT ON (product_id)
             product_id, buy_price, sell_price, buy_volume, sell_volume, sell_moving_week, buy_moving_week
@@ -44,6 +45,7 @@ export async function getCurrentProducts(sortBy = 'Coins per hour', reverseSort=
          ORDER BY product_id, recorded_at DESC
         ) AS current_prices
         ORDER BY ${currentSort} ${reverseSort ? 'ASC' : 'DESC'}
+        LIMIT 500;
         `
     );
     return products.rows;
@@ -62,7 +64,6 @@ export async function getProductHistory(productId){
         ORDER BY recorded_at ASC;
         `
     );
-    console.log(productHistory.rows);
     return productHistory.rows;
 }
 
